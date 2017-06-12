@@ -1,4 +1,4 @@
-package databaseHelpers;
+package database;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,13 +8,13 @@ public class ReadQuery extends Query {
 
 	private ResultSet resultSet;
 
-	public ReadQuery() {
+	public ReadQuery(String tableName) {
 		super();
-		doRead();
+		doRead(tableName);
 	}
 
-	public void doRead() {
-		String query = "Select * from Ingredients";
+	public void doRead(String tableName) {
+		String query = "Select * from " + tableName;
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();

@@ -1,17 +1,17 @@
-package databaseHelpers;
+package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public abstract class Query {
-	
+
 	protected Connection connection;
 
 	public Query() {
-		String url = "jdbc:mysql://localhost:3306/MealPlanner";
-		String username = "root";
-		String password = "";
+		String url = "jdbc:mysql://localhost:3306/MealPlannerDB";
+		String username = "mealPlannerApp";
+		String password = "1q,2w.3e,4r.";
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -26,5 +26,5 @@ public abstract class Query {
 			e.printStackTrace();
 		}
 	}
-	
+
 }
