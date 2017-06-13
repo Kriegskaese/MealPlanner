@@ -10,12 +10,12 @@ import model.MealPlannerApp;
 import model.Profile;
 import view.IngredientsTab;
 
-public class IngredientController implements Observer, ActionListener {
+public class IngredientsTabController implements Observer, ActionListener {
 	
-	private Ingredient model;
+	private MealPlannerApp model;
 	private IngredientsTab view;
 	
-	public IngredientController(Ingredient model, IngredientsTab view) {
+	public IngredientsTabController(MealPlannerApp model, IngredientsTab view) {
 		this.model = model;
 		this.view = view;
 		
