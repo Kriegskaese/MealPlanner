@@ -5,21 +5,24 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.MealPlannerApp;
+import model.Application;
+import view.IngredientsTab;
 import view.MainFrame;
 
-public class ApplicationController implements Observer, ActionListener {
+public class MainFrameController implements Observer, ActionListener {
 	
-	private MealPlannerApp model;
+	private Application model;
 	private MainFrame view;
 	
-	public ApplicationController(MealPlannerApp model, MainFrame view) {
+	public MainFrameController(Application model, MainFrame view) {
 		this.model = model;
 		this.view = view;
 		
 		this.model.addObserver(this);
 		
 		this.view.getExitMenuItem().addActionListener(this);
+		
+		setUpIngredientsTabController();
 	}
 
 	@Override
@@ -33,6 +36,15 @@ public class ApplicationController implements Observer, ActionListener {
 	public void update(Observable observable, Object object) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void setUpIngredientsTabController() {
+		IngredientsTab ingredientsTab = new IngredientsTab();
+		
+		// Add the tab to the main frame.
+		view.addTab(ingredientsTab, "Ingredients");
+		
+		new IngredientsTabController(model, ingredientsTab);
 	}
 
 }

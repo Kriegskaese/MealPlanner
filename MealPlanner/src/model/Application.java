@@ -4,26 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-public final class MealPlannerApp extends Observable {
+public final class Application extends Observable {
 
 	private List<Profile> profiles = new ArrayList<Profile>();
 	private Profile activeProfile;
 
 	// Singleton Pattern with lazy initialization
-	private static volatile MealPlannerApp instance = null;
+	private static volatile Application instance = null;
 
-	private MealPlannerApp() {
+	private Application() {
 		if (profiles.size() == 0) {
 			createProfile("default");
 			setActiveProfile(profiles.get(0));
 		}
 	}
 
-	public static MealPlannerApp getInstance() {
+	public static Application getInstance() {
 		if (instance == null) {
-			synchronized(MealPlannerApp.class) {
+			synchronized(Application.class) {
 				if (instance == null) {
-					instance = new MealPlannerApp();
+					instance = new Application();
 				}
 			}
 		}
