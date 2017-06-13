@@ -1,15 +1,13 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-
-import model.MealPlannerApp;
 
 public class MainFrame extends JFrame {
 
@@ -25,14 +23,14 @@ public class MainFrame extends JFrame {
 
 	public static final String ACTION_COMMAND_EXIT = "closeApplication";
 
-	public MainFrame(MealPlannerApp model) {
+	public MainFrame() {
 		configureFrame();
 
 		setJMenuBar(menuBar);
 		configureMenuBar();
 
 		add(tabbedPane);
-		configureTabbedPane();
+		// configureTabbedPane();
 
 		pack();
 
@@ -103,9 +101,10 @@ public class MainFrame extends JFrame {
 		helpMenu.add(aboutMenuItem);
 	}
 
+	/* This part is now done in the MainFrameController in order to have access to the tabs.
 	private void configureTabbedPane() {
-		tabbedPane.addTab("Mealplans", new MealPlansTab_());
-		tabbedPane.addTab("Shopping Lists", new ShoppingListsTab_());
+		tabbedPane.addTab("Meal plans", new MealPlansTab_());
+		tabbedPane.addTab("Shopping lists", new ShoppingListsTab_());
 		tabbedPane.addTab("Statistics", new StatisticsTab());
 		tabbedPane.addTab("Notes", new NotesTab());
 		tabbedPane.addTab("Categories & Tags", new TagsAndCategoriesTab());
@@ -119,9 +118,14 @@ public class MainFrame extends JFrame {
 			tabbedPane.setBackgroundAt(i, configurationTabsColor);
 		}
 	}
+	 */
 
 	public JMenuItem getExitMenuItem() {
 		return exitMenuItem;
+	}
+
+	public void addTab(JPanel tab, String tabName) {
+		tabbedPane.addTab(tabName, tab);
 	}
 
 }
