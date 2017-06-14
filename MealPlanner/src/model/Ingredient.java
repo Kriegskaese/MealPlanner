@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import database.AddQuery;
+
 public class Ingredient extends Food {
 
 	private static int currentId = 0;
@@ -9,6 +11,7 @@ public class Ingredient extends Food {
 
 	public Ingredient() {
 		properties.add(new FoodProperty("id", new Integer(currentId)));
+		new AddQuery("ingredients", currentId);
 		currentId++;
 	}
 

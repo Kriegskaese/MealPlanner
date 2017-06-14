@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import database.AddQuery;
 import database.DeleteQuery;
 
 public class Profile extends Observable {
@@ -33,7 +32,6 @@ public class Profile extends Observable {
 
 	public void addIngredient(Ingredient ingredient) {
 		ingredients.add(ingredient);
-		new AddQuery("ingredients", ingredients.size());
 		setChanged();
 		notifyObservers();
 	}
