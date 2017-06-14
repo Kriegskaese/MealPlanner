@@ -17,6 +17,7 @@ public final class Application extends Observable {
 			createProfile("default");
 			setActiveProfile(profiles.get(0));
 		}
+		Ingredient.initializeId();
 	}
 
 	public static Application getInstance() {

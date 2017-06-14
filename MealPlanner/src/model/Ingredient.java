@@ -1,8 +1,11 @@
 package model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import database.AddQuery;
+import database.ReadQuery;
 
 public class Ingredient extends Food {
 
@@ -29,6 +32,26 @@ public class Ingredient extends Food {
 		tags.remove(tag);
 		setChanged();
 		notifyObservers();
+	}
+
+	public static void initializeId() {
+		// get all the ingredients from the database
+		ResultSet resultSet = new ReadQuery("ingredients").getResultSet();
+
+		// find the highest id
+		int highestId = Integer.MIN_VALUE;
+		try {
+			while (resultSet.next()) {
+				if (resultSet.getInt(1) > highestId) {
+					highestId = resultSet.getInt(1);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// increment highest id by one
+		currentId = highestId + 1;
 	}
 
 }
