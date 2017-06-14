@@ -26,24 +26,4 @@ public class RecipeEntry {
 		this.ingredient = ingredient;
 	}
 
-	public int getPrice() {
-		return amount * ingredient.getPriceInCentsPer100();
-	}
-
-	public int getEnergy() {
-		return amount * ingredient.getEnergyPer100();
-	}
-
-	public int getProtein() {
-		return amount * ingredient.getProteinPer100();
-	}
-
-	public int getFat() {
-		return amount * ingredient.getFatPer100();
-	}
-
-	public int getCarbs() {
-		return amount * ingredient.getCarbsPer100();
-	}
-
 }

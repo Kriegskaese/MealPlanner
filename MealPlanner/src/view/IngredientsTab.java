@@ -14,6 +14,7 @@ public class IngredientsTab extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
+	/*
 	private String[] columnNames = {"Name", "Category", "Energy [Kcal/100g]", "Protein [g/100g]",
 			"Fat [g/100g]", "Carbs [g/100g]", "Tags"};
 	private Object[][] data = {
@@ -31,16 +32,19 @@ public class IngredientsTab extends JPanel {
 									new Integer(3), new Integer(12), new IngredientTag("vegan", false).getName() + ", " +
 											new IngredientTag("green", false).getName()}
 	};
+	*/
 
 	public static final String ACTION_COMMAND_ADD_INGREDIENT = "addIngredient";
 	public static final String ACTION_COMMAND_DELETE_INGREDIENT = "deleteIngredient";
 
-	private JTable ingredientsTable = new JTable(data, columnNames);
+	private JTable ingredientsTable;
 	private JButton addButton = new AddButton(ACTION_COMMAND_ADD_INGREDIENT);
 	private JButton deleteButton = new DeleteButton(ACTION_COMMAND_DELETE_INGREDIENT);
 	private JTextField searchBarTextField = new JTextField();
 
-	public IngredientsTab() {
+	public IngredientsTab(JTable table) {
+		ingredientsTable = table;
+
 		setLayout(new BorderLayout());
 
 		TablePanel tablePanel = new TablePanel(ingredientsTable, true , addButton, deleteButton);
