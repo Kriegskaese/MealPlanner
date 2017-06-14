@@ -3,9 +3,9 @@ package database;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class WriteQuery extends Query {
+public class DeleteQuery extends Query {
 
-	public WriteQuery(String tableName, int id) {
+	public DeleteQuery(String tableName, int id) {
 		super();
 		doDelete(tableName, id);
 	}
