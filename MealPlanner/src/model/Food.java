@@ -1,9 +1,13 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 public abstract class Food extends Observable {
-
+	
+	protected List<FoodProperty> properties = new ArrayList<FoodProperty>();
+	
 	protected String name;
 	protected Rating rating;
 	protected int portionSize;
