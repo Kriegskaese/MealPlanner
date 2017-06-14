@@ -12,7 +12,12 @@ public abstract class Food extends Observable {
 	protected int proteinPer100;
 	protected int fatPer100;
 	protected int carbsPer100;
-	
+	protected int id;
+
+	public int getId() {
+		return id;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -22,41 +27,75 @@ public abstract class Food extends Observable {
 		setChanged();
 		notifyObservers();
 	}
-	
-	public void setRating(Rating rating) {
-		this.rating = rating;
-	}
-	
-	public void setPortionSize(int portionSize) {
-		this.portionSize = portionSize;
-	}
 
 	public Rating getRating() {
 		return rating;
 	}
 
-	public int getPrice() {
+	public void setRating(Rating rating) {
+		this.rating = rating;
+		setChanged();
+		notifyObservers();
+	}
+
+	public int getPortionSize() {
+		return portionSize;
+	}
+
+	public void setPortionSize(int portionSize) {
+		this.portionSize = portionSize;
+		setChanged();
+		notifyObservers();
+	}
+
+	public int getPriceInCentsPer100() {
 		return priceInCentsPer100;
 	}
 
-	public int getEnergy() {
+	public void setPriceInCentsPer100(int priceInCentsPer100) {
+		this.priceInCentsPer100 = priceInCentsPer100;
+		setChanged();
+		notifyObservers();
+	}
+
+	public int getEnergyPer100() {
 		return energyPer100;
 	}
 
-	public int getProtein() {
+	public void setEnergyPer100(int energyPer100) {
+		this.energyPer100 = energyPer100;
+		setChanged();
+		notifyObservers();
+	}
+
+	public int getProteinPer100() {
 		return proteinPer100;
 	}
 
-	public int getFat() {
+	public void setProteinPer100(int proteinPer100) {
+		this.proteinPer100 = proteinPer100;
+		setChanged();
+		notifyObservers();
+	}
+
+	public int getFatPer100() {
 		return fatPer100;
 	}
 
-	public int getCarbs() {
+	public void setFatPer100(int fatPer100) {
+		this.fatPer100 = fatPer100;
+		setChanged();
+		notifyObservers();
+	}
+
+	public int getCarbsPer100() {
 		return carbsPer100;
 	}
-	
-	public int getProtionSize() {
-		return portionSize;
+
+	public void setCarbsPer100(int carbsPer100) {
+		this.carbsPer100 = carbsPer100;
+		setChanged();
+		notifyObservers();
 	}
 
 }

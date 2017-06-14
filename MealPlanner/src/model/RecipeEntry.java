@@ -22,23 +22,23 @@ public class RecipeEntry {
 	}
 	
 	public int getPrice() {
-		return amount * ingredient.getPrice();
+		return amount * ingredient.getPriceInCentsPer100();
 	}
 	
 	public int getEnergy() {
-		return amount * ingredient.getEnergy();
+		return amount * ingredient.getEnergyPer100();
 	}
 	
 	public int getProtein() {
-		return amount * ingredient.getProtein();
+		return amount * ingredient.getProteinPer100();
 	}
 	
 	public int getFat() {
-		return amount * ingredient.getFat();
+		return amount * ingredient.getFatPer100();
 	}
 	
 	public int getCarbs() {
-		return amount * ingredient.getCarbs();
+		return amount * ingredient.getCarbsPer100();
 	}
 
 }

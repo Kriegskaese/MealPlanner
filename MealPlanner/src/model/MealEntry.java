@@ -22,23 +22,23 @@ public class MealEntry {
 	}
 	
 	public double getPrice() {
-		return amount * food.getPrice();
+		return amount * food.getPriceInCentsPer100();
 	}
 	
 	public double getEnergy() {
-		return amount * food.getEnergy();
+		return amount * food.getEnergyPer100();
 	}
 	
 	public int getProtein() {
-		return amount * food.getProtein();
+		return amount * food.getProteinPer100();
 	}
 	
 	public int getFat() {
-		return amount * food.getFat();
+		return amount * food.getFatPer100();
 	}
 	
 	public int getCarbs() {
-		return amount * food.getCarbs();
+		return amount * food.getCarbsPer100();
 	}
 
 }

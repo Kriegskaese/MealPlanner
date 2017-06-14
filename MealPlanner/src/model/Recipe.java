@@ -29,45 +29,45 @@ public class Recipe extends Food {
 	}
 
 	@Override
-	public int getPrice() {
+	public int getPriceInCentsPer100() {
 		if (useManualPriceValue) {
-			return getPrice();
+			return getPriceInCentsPer100();
 		} else {
 			return calculatePriceFromEntries();
 		}
 	}
 
 	@Override
-	public int getEnergy() {
+	public int getEnergyPer100() {
 		if (useManualEnergyValue) {
-			return getEnergy();
+			return getEnergyPer100();
 		} else {
 			return calculateEnergyFromEntries();
 		}
 	}
 
 	@Override
-	public int getProtein() {
+	public int getProteinPer100() {
 		if (useManualProteinValue) {
-			return getProtein();
+			return getProteinPer100();
 		} else {
 			return calculateProteinFromEntries();
 		}
 	}
 
 	@Override
-	public int getFat() {
+	public int getFatPer100() {
 		if (useManualFatValue) {
-			return getFat();
+			return getFatPer100();
 		} else {
 			return calculateFatFromEntries();
 		}
 	}
 
 	@Override
-	public int getCarbs() {
+	public int getCarbsPer100() {
 		if (useManualCarbsValue) {
-			return getCarbs();
+			return getCarbsPer100();
 		} else {
 			return calculateCarbsFromEntries();
 		}
