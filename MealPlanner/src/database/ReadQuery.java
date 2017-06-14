@@ -10,10 +10,10 @@ public class ReadQuery extends Query {
 
 	public ReadQuery(String tableName) {
 		super();
-		doRead(tableName);
+		issueReadQuery(tableName);
 	}
 
-	public void doRead(String tableName) {
+	public void issueReadQuery(String tableName) {
 		String query = "Select * from " + tableName;
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);

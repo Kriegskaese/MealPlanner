@@ -5,16 +5,16 @@ import java.sql.SQLException;
 
 public class AddQuery extends Query {
 
-	public AddQuery(String tableName, int newID) {
+	public AddQuery(String tableName, int newId) {
 		super();
-		doAdd(tableName, newID);
+		issueAddQuery(tableName, newId);
 	}
 
-	public void doAdd(String tableName, int newID) {
+	public void issueAddQuery(String tableName, int newId) {
 		String query = "INSERT INTO " + tableName + " (id) VALUES (?)";
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setInt(1, newID);
+			preparedStatement.setInt(1, newId);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

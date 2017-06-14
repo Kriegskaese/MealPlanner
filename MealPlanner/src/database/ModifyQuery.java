@@ -7,10 +7,10 @@ public class ModifyQuery extends Query {
 
 	public ModifyQuery(String tableName, String fieldName, String newValue, int id) {
 		super();
-		doModify(tableName, fieldName, newValue, id);
+		issueModifyQuery(tableName, fieldName, newValue, id);
 	}
 
-	public void doModify(String tableName, String fieldName, String newValue, int id) {
+	public void issueModifyQuery(String tableName, String fieldName, String newValue, int id) {
 		String query = "UPDATE " + tableName + " set ?=? where id=?";
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);

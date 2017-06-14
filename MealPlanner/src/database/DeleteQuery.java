@@ -7,10 +7,10 @@ public class DeleteQuery extends Query {
 
 	public DeleteQuery(String tableName, int id) {
 		super();
-		doDelete(tableName, id);
+		issueDeleteQuery(tableName, id);
 	}
 
-	public void doDelete(String tableName, int id) {
+	public void issueDeleteQuery(String tableName, int id) {
 		String query = "DELETE from " + tableName + " WHERE name = ?";
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);

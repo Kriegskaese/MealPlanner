@@ -13,6 +13,7 @@ public abstract class Query {
 		String username = "mealPlannerApp";
 		String password = "1q,2w.3e,4r.";
 
+		// Connect to database
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			connection = DriverManager.getConnection(url, username, password);
