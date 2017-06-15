@@ -53,15 +53,18 @@ public class MainFrameController implements Observer, ActionListener {
 	}
 
 	private void setUpIngredientsTabController() {
-		// Initialize the table displayed in the tab
+		// initialize the table displayed in the tab
 		JTable ingredientsTable = initializeIngredientsTabTable();
 
-		//Create tab and controller
+		// create tab and controller
 		IngredientsTab ingredientsTab = new IngredientsTab(ingredientsTable);
 		new IngredientsTabController(model, ingredientsTab);
 
-		// Add the tab to the main frame.
+		// add the tab to the main frame
 		view.addTab(ingredientsTab, "Ingredients");
+		
+		// select the first row
+		ingredientsTable.changeSelection(0, 0, false, false);
 	}
 
 	private void setUpRecipesTabController() {
