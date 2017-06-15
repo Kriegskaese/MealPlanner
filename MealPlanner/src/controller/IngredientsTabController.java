@@ -40,8 +40,16 @@ public class IngredientsTabController implements Observer, ActionListener {
 			Profile activeProfile = Application.getInstance().getActiveProfile();
 			activeProfile.addIngredient(new Ingredient());
 
-			// select previously selected row (if none was selected none will be selected)
-			view.getIngredientsTable().changeSelection(selectedRow, 0, false, false);
+			// select a new row
+			int nRows = view.getIngredientsTable().getRowCount();
+
+			if (nRows == 1) {
+				// select the only available row
+				view.getIngredientsTable().changeSelection(0, 0, false, false);
+			} else {
+				// select previously selected row (if none was selected none will be selected)
+				view.getIngredientsTable().changeSelection(selectedRow, 0, false, false);
+			}
 		}
 
 		if (event.getActionCommand() == IngredientsTab.ACTION_COMMAND_DELETE_INGREDIENT) {
