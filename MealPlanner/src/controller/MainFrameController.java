@@ -4,8 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
+
+import javax.swing.JTable;
 
 import model.Application;
+import model.FoodProperty;
+import model.Ingredient;
 import view.EventsTab;
 import view.IngredientsTab;
 import view.MainFrame;
@@ -50,7 +55,11 @@ public class MainFrameController implements Observer, ActionListener {
 	}
 
 	private void setUpIngredientsTabController() {
-		IngredientsTab ingredientsTab = new IngredientsTab();
+		// Initialize the table displayed in the tab
+		JTable ingredientsTable = initializeIngredientsTabTable();
+
+		//Create tab and controller
+		IngredientsTab ingredientsTab = new IngredientsTab(ingredientsTable);
 		new IngredientsTabController(model, ingredientsTab);
 
 		// Add the tab to the main frame.
@@ -84,6 +93,42 @@ public class MainFrameController implements Observer, ActionListener {
 
 		// Add the tab to the main frame.
 		view.addTab(notesTab, "Notes");
+	}
+
+	public JTable initializeIngredientsTabTable() {
+		Vector<String> columnNames = addColumnNames();
+		Vector<Vector<Object>> data = addRows();
+
+		return new JTable(data, columnNames);
+	}
+
+	private Vector<String> addColumnNames() {
+		Vector<String> names = new Vector<String>();
+
+		// Any ingredient can be used, because they all have the same column names anyway.
+		Ingredient anyIngredient = Application.getInstance().getActiveProfile().getIngredients().get(0);
+
+		for (FoodProperty property : anyIngredient.getProperties()) {
+			names.add(property.getName());
+		}
+
+		return names;
+	}
+
+	private Vector<Vector<Object>> addRows() {
+		Vector<Vector<Object>> rows = new Vector<Vector<Object>>();
+
+		for (Ingredient ingredient : Application.getInstance().getActiveProfile().getIngredients()) {
+			Vector<Object> row = new Vector<Object>();
+
+			for (FoodProperty property : ingredient.getProperties()) {
+				row.add(property.getValue());
+			}
+
+			rows.add(row);
+		}
+
+		return rows;
 	}
 
 }
