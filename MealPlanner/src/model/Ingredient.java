@@ -18,6 +18,10 @@ public class Ingredient extends Food {
 		currentId++;
 	}
 
+	public Ingredient(int id) {
+		properties.add(new FoodProperty("id", new Integer(id)));
+	}
+
 	public List<IngredientTag> getTags() {
 		return tags;
 	}
