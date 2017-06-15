@@ -14,15 +14,15 @@ public class IngredientsTab extends JPanel {
 	public static final String ACTION_COMMAND_ADD_INGREDIENT = "addIngredient";
 	public static final String ACTION_COMMAND_DELETE_INGREDIENT = "deleteIngredient";
 
-	private JTable ingredientsTable;
 	private JButton addButton = new AddButton(ACTION_COMMAND_ADD_INGREDIENT);
 	private JButton deleteButton = new DeleteButton(ACTION_COMMAND_DELETE_INGREDIENT);
 	private JTextField searchBarTextField = new JTextField();
+	private TablePanel tablePanel;
 
 	public IngredientsTab(JTable ingredientsTable) {
 		setLayout(new BorderLayout());
 
-		TablePanel tablePanel = new TablePanel(ingredientsTable, true , addButton, deleteButton);
+		tablePanel = new TablePanel(ingredientsTable, true , addButton, deleteButton);
 		add(tablePanel);
 
 		JPanel searchBarPanel = new SearchBarPanel(searchBarTextField);
@@ -30,7 +30,7 @@ public class IngredientsTab extends JPanel {
 	}
 
 	public JTable getIngredientsTable() {
-		return ingredientsTable;
+		return tablePanel.getTable();
 	}
 
 	public JTextField getSearchBarTextField() {

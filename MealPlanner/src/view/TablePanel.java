@@ -14,11 +14,13 @@ public class TablePanel extends JPanel {
 
 	private JPanel topPanel = new JPanel();
 	private JPanel topLeftPanel = new JPanel();
+	private JTable table;
 
 	public TablePanel(JTable table, Boolean isSortable, JButton button1, JButton button2) {
 		setLayout(new BorderLayout());
+		this.table = table;
 
-		createScrollableTable(table, isSortable);
+		createScrollableTable(isSortable);
 		createTopLeftPanel();
 
 		topLeftPanel.add(button1);
@@ -28,7 +30,7 @@ public class TablePanel extends JPanel {
 	public TablePanel(JTable table, Boolean isSortable, JButton button1, JButton button2, JButton button3, JButton button4) {
 		setLayout(new BorderLayout());
 
-		createScrollableTable(table, isSortable);
+		createScrollableTable(isSortable);
 		createTopLeftPanel();
 
 		topLeftPanel.add(button1);
@@ -37,7 +39,7 @@ public class TablePanel extends JPanel {
 		topLeftPanel.add(button4);
 	}
 
-	private void createScrollableTable(JTable table, boolean isSortable) {
+	private void createScrollableTable(boolean isSortable) {
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane);
 		scrollPane.setViewportView(table);
@@ -60,6 +62,10 @@ public class TablePanel extends JPanel {
 
 	public JPanel getTopPanel() {
 		return topPanel;
+	}
+
+	public JTable getTable() {
+		return table;
 	}
 
 }
