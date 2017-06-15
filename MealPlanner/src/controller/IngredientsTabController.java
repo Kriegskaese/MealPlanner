@@ -32,37 +32,61 @@ public class IngredientsTabController implements Observer, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		if (event.getActionCommand() == IngredientsTab.ACTION_COMMAND_ADD_INGREDIENT) {
+		if (event.getActionCommand() == IngredientsTab.ACTION_COMMAND_ADD_INGREDIENT) {		
+			// remember the currently selected row
+			int selectedRow = view.getIngredientsTable().getSelectedRow();
+
+			// add ingredient
 			Profile activeProfile = Application.getInstance().getActiveProfile();
 			activeProfile.addIngredient(new Ingredient());
+
+			// select previously selected row (if none was selected none will be selected)
+			view.getIngredientsTable().changeSelection(selectedRow, 0, false, false);
 		}
+
 		if (event.getActionCommand() == IngredientsTab.ACTION_COMMAND_DELETE_INGREDIENT) {
+			// remember the currently selected row
+			int selectedRow = view.getIngredientsTable().getSelectedRow();
+
+			// delete the ingredient
 			Profile activeProfile = Application.getInstance().getActiveProfile();
 			Ingredient selectedIngredient = getSelectedIngredient(view.getIngredientsTable());
+
 			activeProfile.removeIngredient(selectedIngredient);
+
+			// select a new row if possible
+			int nRows = view.getIngredientsTable().getRowCount();
+
+			if (nRows > 0) {
+				if (selectedRow < nRows) {
+					view.getIngredientsTable().changeSelection(selectedRow, 0, false, false);
+				} else {
+					view.getIngredientsTable().changeSelection(selectedRow-1, 0, false, false);
+				}
+			}
 		}
 	}
 
 	@Override
 	public void update(Observable observable, Object object) {
 		//if (object == Application.getInstance().getActiveProfile().getIngredients()) {
-			TableModel newModel = new TableGenerator().getTableModel();
-			view.getIngredientsTable().setModel(newModel);
+		TableModel newModel = new TableGenerator().getTableModel();
+		view.getIngredientsTable().setModel(newModel);
 		//}
 	}
-	
+
 	private Ingredient getSelectedIngredient(JTable table) {
 		int selectedRow = table.getSelectedRow();
 		int selectedIngredientId = (Integer) table.getModel().getValueAt(selectedRow, 0);
 
 		Profile activeProfile = Application.getInstance().getActiveProfile();
-		
+
 		for (Ingredient ingredient : activeProfile.getIngredients()) {
 			if (ingredient.getId() == selectedIngredientId) {
 				return ingredient;
 			}
 		}
-		return null; //TODO: How do you best handle this case?
+		return null; //TODO: How to best handle this case?
 	}
 
 }
