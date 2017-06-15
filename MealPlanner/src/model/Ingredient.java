@@ -9,7 +9,7 @@ import database.ReadQuery;
 
 public class Ingredient extends Food {
 
-	private static int currentId = 0;
+	private static int currentId;
 	private List<IngredientTag> tags;
 
 	public Ingredient() {
@@ -43,7 +43,7 @@ public class Ingredient extends Food {
 		ResultSet resultSet = new ReadQuery("ingredients").getResultSet();
 
 		// find the highest id
-		int highestId = Integer.MIN_VALUE;
+		int highestId = 0;
 		try {
 			while (resultSet.next()) {
 				if (resultSet.getInt(1) > highestId) {
