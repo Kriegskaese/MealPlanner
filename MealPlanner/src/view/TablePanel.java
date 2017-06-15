@@ -29,6 +29,7 @@ public class TablePanel extends JPanel {
 
 	public TablePanel(JTable table, Boolean isSortable, JButton button1, JButton button2, JButton button3, JButton button4) {
 		setLayout(new BorderLayout());
+		this.table = table;
 
 		createScrollableTable(isSortable);
 		createTopLeftPanel();
