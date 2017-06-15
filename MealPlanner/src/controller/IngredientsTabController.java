@@ -50,6 +50,11 @@ public class IngredientsTabController implements Observer, ActionListener {
 				// select previously selected row (if none was selected none will be selected)
 				view.getIngredientsTable().changeSelection(selectedRow, 0, false, false);
 			}
+
+			// enable DeleteButton if table is not empty
+			if (view.getIngredientsTable().getRowCount() > 0) {
+				view.getDeleteButton().setEnabled(true);
+			}
 		}
 
 		if (event.getActionCommand() == IngredientsTab.ACTION_COMMAND_DELETE_INGREDIENT) {
@@ -86,6 +91,11 @@ public class IngredientsTabController implements Observer, ActionListener {
 				} else {
 					view.getIngredientsTable().changeSelection(selectedRow-1, 0, false, false);
 				}
+			}
+
+			// disable DeleteButton if table empty
+			if (view.getIngredientsTable().getRowCount() == 0) {
+				view.getDeleteButton().setEnabled(false);
 			}
 		}
 	}

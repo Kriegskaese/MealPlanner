@@ -62,9 +62,14 @@ public class MainFrameController implements Observer, ActionListener {
 
 		// add the tab to the main frame
 		view.addTab(ingredientsTab, "Ingredients");
-		
+
 		// select the first row
 		ingredientsTable.changeSelection(0, 0, false, false);
+
+		// disable DeleteButton if table empty
+		if (ingredientsTable.getRowCount() == 0) {
+			ingredientsTab.getDeleteButton().setEnabled(false);
+		}
 	}
 
 	private void setUpRecipesTabController() {
