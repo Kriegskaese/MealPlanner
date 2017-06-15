@@ -13,7 +13,7 @@ public abstract class Food extends Observable {
 	}
 
 	public int getId() {
-		return Integer.valueOf((String) properties.get(0).getValue());
+		return (int) properties.get(0).getValue();
 	}
 
 	public void addProperty(FoodProperty property) {

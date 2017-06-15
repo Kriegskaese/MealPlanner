@@ -11,7 +11,7 @@ public class DeleteQuery extends Query {
 	}
 
 	public void issueDeleteQuery(String tableName, int id) {
-		String query = "DELETE from " + tableName + " WHERE name = ?";
+		String query = "DELETE from " + tableName + " WHERE id = ?";
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, id);

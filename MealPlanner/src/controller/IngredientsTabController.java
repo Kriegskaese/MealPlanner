@@ -6,10 +6,12 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JTable;
+import javax.swing.table.TableModel;
 
 import model.Application;
 import model.Ingredient;
 import model.Profile;
+import model.TableGenerator;
 import view.IngredientsTab;
 
 public class IngredientsTabController implements Observer, ActionListener {
@@ -22,6 +24,7 @@ public class IngredientsTabController implements Observer, ActionListener {
 		this.view = view;
 
 		this.model.addObserver(this);
+		this.model.getActiveProfile().addObserver(this);
 
 		this.view.getAddButton().addActionListener(this);
 		this.view.getDeleteButton().addActionListener(this);
@@ -42,11 +45,16 @@ public class IngredientsTabController implements Observer, ActionListener {
 
 	@Override
 	public void update(Observable observable, Object object) {
-
+		//if (object == Application.getInstance().getActiveProfile().getIngredients()) {
+			TableModel newModel = new TableGenerator().getTableModel();
+			view.getIngredientsTable().setModel(newModel);
+		//}
 	}
 	
 	private Ingredient getSelectedIngredient(JTable table) {
-		int selectedIngredientId = table.getSelectedRow();
+		int selectedRow = table.getSelectedRow();
+		int selectedIngredientId = (Integer) table.getModel().getValueAt(selectedRow, 0);
+
 		Profile activeProfile = Application.getInstance().getActiveProfile();
 		
 		for (Ingredient ingredient : activeProfile.getIngredients()) {
@@ -54,7 +62,7 @@ public class IngredientsTabController implements Observer, ActionListener {
 				return ingredient;
 			}
 		}
-		return null;
+		return null; //TODO: How do you best handle this case?
 	}
 
 }
