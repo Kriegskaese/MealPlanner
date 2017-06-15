@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Vector;
 
 import database.DeleteQuery;
 import database.ReadQuery;
@@ -14,6 +15,7 @@ public class Profile extends Observable {
 	private String name;
 
 	private List<Ingredient> ingredients = new ArrayList<Ingredient>();
+	private Vector<String> ingredientsColumnNames = new Vector<String>();
 	private List<IngredientTag> ingredientTags = new ArrayList<IngredientTag>();
 	private List<IngredientCategory> ingredientCategories = new ArrayList<IngredientCategory>();
 	private List<Recipe> recipies = new ArrayList<Recipe>();
@@ -24,6 +26,7 @@ public class Profile extends Observable {
 	public Profile(String name) {
 		this.name = name;
 		initializeIngredients();
+		initializeIngredientsColumnNames();
 	}
 
 	public String getName() {
@@ -52,6 +55,10 @@ public class Profile extends Observable {
 		return ingredients;
 	}
 
+	public Vector<String> getIngredientsColumnNames() {
+		return ingredientsColumnNames;
+	}
+
 	private void initializeIngredients() {
 		ResultSet resultSet = new ReadQuery("ingredients").getResultSet();
 
@@ -73,6 +80,21 @@ public class Profile extends Observable {
 
 				// add ingredient to this profile
 				ingredients.add(ingredient);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void initializeIngredientsColumnNames() {
+		ResultSet resultSet = new ReadQuery("ingredients").getResultSet();
+
+		try {
+			int nColumns = resultSet.getMetaData().getColumnCount();
+
+			for (int i = 1; i <= nColumns; i++) {
+				String columnName = resultSet.getMetaData().getColumnName(i);
+				ingredientsColumnNames.add(columnName);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
