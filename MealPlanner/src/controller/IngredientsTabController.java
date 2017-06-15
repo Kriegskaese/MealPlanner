@@ -62,6 +62,21 @@ public class IngredientsTabController implements Observer, ActionListener {
 
 			activeProfile.removeIngredient(selectedIngredient);
 
+			// set the id for the next ingredient that is going to be created
+			int highestId = 0;
+
+			for (Ingredient ingredient : activeProfile.getIngredients()) {
+				if (highestId < ingredient.getId()) {
+					highestId = ingredient.getId();
+				}
+			}
+
+			if (activeProfile.getIngredients().size() == 0) {
+				Ingredient.setCurrentId(1);
+			} else {
+				Ingredient.setCurrentId(highestId + 1);
+			}
+
 			// select a new row if possible
 			int nRows = view.getIngredientsTable().getRowCount();
 
