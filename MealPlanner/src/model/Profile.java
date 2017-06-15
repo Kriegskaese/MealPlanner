@@ -68,7 +68,7 @@ public class Profile extends Observable {
 					String propertyName = resultSet.getMetaData().getColumnName(i);
 					Object propertyValue = resultSet.getObject(i);
 
-					new FoodProperty(propertyName, propertyValue);
+					ingredient.addProperty(new FoodProperty(propertyName, propertyValue));
 				}
 
 				// add ingredient to this profile
