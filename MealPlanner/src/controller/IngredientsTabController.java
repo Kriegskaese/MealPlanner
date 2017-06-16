@@ -1,10 +1,12 @@
 package controller;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
@@ -12,7 +14,9 @@ import model.Application;
 import model.Ingredient;
 import model.Profile;
 import model.TableGenerator;
+import view.AddAndModifyIngredientFrame;
 import view.IngredientsTab;
+import view.LabelTextFieldPanel;
 
 public class IngredientsTabController implements Observer, ActionListener {
 
@@ -32,29 +36,24 @@ public class IngredientsTabController implements Observer, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		if (event.getActionCommand() == IngredientsTab.ACTION_COMMAND_ADD_INGREDIENT) {		
-			// remember the currently selected row
-			int selectedRow = view.getIngredientsTable().getSelectedRow();
+		if (event.getActionCommand() == IngredientsTab.ACTION_COMMAND_ADD_INGREDIENT) {	
+			// create new frame and controller
+			AddAndModifyIngredientFrame addIngredientFrame = new AddAndModifyIngredientFrame();
+			new AddAndModifyIngredientFrameController(addIngredientFrame, view);
 
-			// add ingredient
-			Profile activeProfile = Application.getInstance().getActiveProfile();
-			activeProfile.addIngredient(new Ingredient());
+			// populate new frame
+			JPanel propertiesPanel = addIngredientFrame.getPropertiesPanel();
+			Profile activeProfile = model.getActiveProfile();
 
-			// select a new row
-			int nRows = view.getIngredientsTable().getRowCount();
-
-			if (nRows == 1) {
-				// select the only available row
-				view.getIngredientsTable().changeSelection(0, 0, false, false);
-			} else {
-				// select previously selected row (if none was selected none will be selected)
-				view.getIngredientsTable().changeSelection(selectedRow, 0, false, false);
+			for (String labelName : activeProfile.getIngredientsColumnNames()) {
+				LabelTextFieldPanel panel = new LabelTextFieldPanel(labelName);
+				propertiesPanel.add(panel);
 			}
 
-			// enable DeleteButton if table is not empty
-			if (view.getIngredientsTable().getRowCount() > 0) {
-				view.getDeleteButton().setEnabled(true);
-			}
+			// pack and show new frame
+			addIngredientFrame.pack();
+			addIngredientFrame.setLocationRelativeTo(null);
+			addIngredientFrame.setVisible(true);
 		}
 
 		if (event.getActionCommand() == IngredientsTab.ACTION_COMMAND_DELETE_INGREDIENT) {
