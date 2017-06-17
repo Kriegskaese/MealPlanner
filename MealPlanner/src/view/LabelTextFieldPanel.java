@@ -23,4 +23,8 @@ public class LabelTextFieldPanel extends JPanel {
 		add(textField, BorderLayout.LINE_END);
 	}
 
+	public JTextField getTextField() {
+		return textField;
+	}
+
 }

@@ -1,12 +1,11 @@
 package controller;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
@@ -16,7 +15,6 @@ import model.Profile;
 import model.TableGenerator;
 import view.AddAndModifyIngredientFrame;
 import view.IngredientsTab;
-import view.LabelTextFieldPanel;
 
 public class IngredientsTabController implements Observer, ActionListener {
 
@@ -38,17 +36,9 @@ public class IngredientsTabController implements Observer, ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		if (event.getActionCommand() == IngredientsTab.ACTION_COMMAND_ADD_INGREDIENT) {	
 			// create new frame and controller
-			AddAndModifyIngredientFrame addIngredientFrame = new AddAndModifyIngredientFrame();
+			List<String> columnNames = model.getActiveProfile().getIngredientsColumnNames();
+			AddAndModifyIngredientFrame addIngredientFrame = new AddAndModifyIngredientFrame(columnNames);
 			new AddAndModifyIngredientFrameController(addIngredientFrame, view);
-
-			// populate new frame
-			JPanel propertiesPanel = addIngredientFrame.getPropertiesPanel();
-			Profile activeProfile = model.getActiveProfile();
-
-			for (String labelName : activeProfile.getIngredientsColumnNames()) {
-				LabelTextFieldPanel panel = new LabelTextFieldPanel(labelName);
-				propertiesPanel.add(panel);
-			}
 
 			// pack and show new frame
 			addIngredientFrame.pack();

@@ -49,11 +49,11 @@ public class AddAndModifyIngredientFrameController implements Observer, ActionLi
 			if (tableView.getIngredientsTable().getRowCount() > 0) {
 				tableView.getDeleteButton().setEnabled(true);
 			}
-			
+
 			// close frame
 			closeFrame();
 		}
-		if (event.getActionCommand() == AddAndModifyIngredientFrame.ACTION_COMMAND_OK) {
+		if (event.getActionCommand() == AddAndModifyIngredientFrame.ACTION_COMMAND_CANCEL) {
 			closeFrame();
 		}
 	}
@@ -61,9 +61,9 @@ public class AddAndModifyIngredientFrameController implements Observer, ActionLi
 	@Override
 	public void update(Observable o, Object arg) {
 	}
-	
+
 	private void closeFrame() {
-		// view.
+		view.dispose();
 	}
 
 }

@@ -26,6 +26,10 @@ public class Ingredient extends Food {
 		return tags;
 	}
 
+	public static int getCurrentId() {
+		return currentId;
+	}
+
 	public static void setCurrentId(int id) {
 		currentId = id;
 	}
