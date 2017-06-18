@@ -8,9 +8,9 @@ public final class Application extends Observable {
 
 	private List<Profile> profiles = new ArrayList<Profile>();
 	private Profile activeProfile;
-
-	// Singleton Pattern with lazy initialization
 	private static volatile Application instance = null;
+
+	//***************************** Constructor(s) *****************************
 
 	private Application() {
 		if (profiles.size() == 0) {
@@ -30,7 +30,31 @@ public final class Application extends Observable {
 		}
 		return instance;
 	}
-	// End of Singleton Pattern
+
+	//************************** External Method(s) ****************************
+
+	public void createProfile(String name) {
+		profiles.add(new Profile(name));
+
+		setChanged();
+		notifyObservers();
+	}
+
+	public void deleteProfile(Profile profile) {
+		profiles.remove(profile);
+
+		setChanged();
+		notifyObservers();
+	}
+
+	public void renameProfile(Profile profile, String newName) {
+		profile.setName(newName);
+
+		setChanged();
+		notifyObservers();
+	}
+
+	//************************ Getter(s) and Setter(s) *************************
 
 	public Profile getActiveProfile() {
 		return activeProfile;
@@ -40,26 +64,9 @@ public final class Application extends Observable {
 		return profiles;
 	}
 
-	public void createProfile(String name) {
-		profiles.add(new Profile(name));
-		setChanged();
-		notifyObservers();
-	}
-
-	public void deleteProfile(Profile profile) {
-		profiles.remove(profile);
-		setChanged();
-		notifyObservers();
-	}
-
-	public void renameProfile(Profile profile, String newName) {
-		profile.setName(newName);
-		setChanged();
-		notifyObservers();
-	}
-
 	public void setActiveProfile(Profile activeProfile) {
 		this.activeProfile = activeProfile;
+
 		setChanged();
 		notifyObservers();
 	}
