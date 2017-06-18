@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -18,22 +19,37 @@ public class AddAndModifyIngredientFrame extends JFrame {
 	public static final String ACTION_COMMAND_CANCEL = "cancel";
 	public static final String ACTION_COMMAND_OK = "ok";
 
+	private List<String> labelNames;
 	private JButton cancelButton = new CancelButton(ACTION_COMMAND_CANCEL);
 	private JButton okButton = new OkButton(ACTION_COMMAND_OK);
 	private JPanel contentPanel = new JPanel();
-	private List<JTextField> textFields;
+	private List<JTextField> textFields = new ArrayList<JTextField>();
+
+	//***************************** Constructor(s) *****************************
 
 	public AddAndModifyIngredientFrame(List<String> labelNames) {
-		// configure the frame
+		this.labelNames = labelNames;
+
+		configureFrame();
+		configureContentPanel();
+		configureButtonsPanel();
+	}
+
+	//*********************** Internal Helper Method(s) ************************
+
+	private void configureFrame() {
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+	}
 
-		// configure the content panel
+	private void configureContentPanel() {
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 		add(contentPanel);
-		createContent(labelNames);
 
-		// configure the buttons panel
+		createContent(labelNames);
+	}
+
+	private void configureButtonsPanel() {
 		JPanel buttonsPanel = new CancelAndOkButtonPanel(cancelButton, okButton);
 		add(buttonsPanel, BorderLayout.SOUTH);
 	}
@@ -50,6 +66,8 @@ public class AddAndModifyIngredientFrame extends JFrame {
 			}
 		}
 	}
+
+	//************************ Getter(s) and Setter(s) *************************
 
 	public JButton getCancelButton() {
 		return cancelButton;
