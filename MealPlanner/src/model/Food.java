@@ -1,62 +1,27 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 public abstract class Food extends Observable {
 
-	protected String name;
-	protected Rating rating;
-	protected int portionSize;
-	protected int priceInCentsPer100;
-	protected int energyPer100;
-	protected int proteinPer100;
-	protected int fatPer100;
-	protected int carbsPer100;
-	
-	public String getName() {
-		return name;
+	protected List<FoodProperty> properties = new ArrayList<FoodProperty>();
+
+	public int getId() {
+		return (int) properties.get(0).getValue();
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void addProperty(FoodProperty property) {
+		properties.add(property);
 		setChanged();
 		notifyObservers();
 	}
-	
-	public void setRating(Rating rating) {
-		this.rating = rating;
-	}
-	
-	public void setPortionSize(int portionSize) {
-		this.portionSize = portionSize;
-	}
 
-	public Rating getRating() {
-		return rating;
-	}
-
-	public int getPrice() {
-		return priceInCentsPer100;
-	}
-
-	public int getEnergy() {
-		return energyPer100;
-	}
-
-	public int getProtein() {
-		return proteinPer100;
-	}
-
-	public int getFat() {
-		return fatPer100;
-	}
-
-	public int getCarbs() {
-		return carbsPer100;
-	}
-	
-	public int getProtionSize() {
-		return portionSize;
+	public void removeProperty(FoodProperty property) {
+		properties.remove(property);
+		setChanged();
+		notifyObservers();
 	}
 
 }

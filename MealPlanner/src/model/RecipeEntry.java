@@ -5,6 +5,11 @@ public class RecipeEntry {
 	private int amount;
 	private Ingredient ingredient;
 
+	public RecipeEntry(int amount, Ingredient ingredient) {
+		this.amount = amount;
+		this.ingredient = ingredient;
+	}
+
 	public int getAmount() {
 		return amount;
 	}
@@ -19,26 +24,6 @@ public class RecipeEntry {
 
 	public void setIngredient(Ingredient ingredient) {
 		this.ingredient = ingredient;
-	}
-	
-	public int getPrice() {
-		return amount * ingredient.getPrice();
-	}
-	
-	public int getEnergy() {
-		return amount * ingredient.getEnergy();
-	}
-	
-	public int getProtein() {
-		return amount * ingredient.getProtein();
-	}
-	
-	public int getFat() {
-		return amount * ingredient.getFat();
-	}
-	
-	public int getCarbs() {
-		return amount * ingredient.getCarbs();
 	}
 
 }
