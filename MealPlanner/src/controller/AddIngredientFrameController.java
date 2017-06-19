@@ -34,7 +34,7 @@ public class AddIngredientFrameController implements ActionListener {
 		if (event.getActionCommand() == AddIngredientFrame.ACTION_COMMAND_OK) {		
 			rememberSelectedRow();
 			createIngredient();
-			//setIngredientProperties();
+			setIngredientProperties();
 			selectNewRow();
 			enableDeleteButtonIfNecessary();
 			closeFrame();
