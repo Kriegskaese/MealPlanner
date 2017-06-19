@@ -2,20 +2,25 @@ package model;
 
 import java.util.Observable;
 
+import database.ModifyQuery;
+
 public class FoodProperty extends Observable {
 
 	private String name;
 	private Object value;
 	private boolean useManualValue = true;
+	private Food food;
 
-	public FoodProperty(String name, Object value) {
+	public FoodProperty(String name, Object value, Food food) {
 		this.name = name;
 		this.value = value;
+		this.food = food;
 	}
 
-	public FoodProperty(String name, Object value, boolean useManualValue) {
+	public FoodProperty(String name, Object value, Food food, boolean useManualValue) {
 		this.name = name;
 		this.value = value;
+		this.food = food;
 		this.useManualValue = useManualValue;
 	}
 
@@ -35,6 +40,7 @@ public class FoodProperty extends Observable {
 
 	public void setValue(Object value) {
 		this.value = value;
+		new ModifyQuery("ingredients", name, this.value.toString(), food.getId());
 		setChanged();
 		notifyObservers();
 	}

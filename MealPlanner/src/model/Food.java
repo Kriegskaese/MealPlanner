@@ -8,10 +8,6 @@ public abstract class Food extends Observable {
 
 	protected List<FoodProperty> properties = new ArrayList<FoodProperty>();
 
-	public List<FoodProperty> getProperties() {
-		return properties;
-	}
-
 	public int getId() {
 		return (int) properties.get(0).getValue();
 	}
@@ -23,7 +19,7 @@ public abstract class Food extends Observable {
 	}
 
 	public void removeProperty(FoodProperty property) {
-		getProperties().remove(property);
+		properties.remove(property);
 		setChanged();
 		notifyObservers();
 	}

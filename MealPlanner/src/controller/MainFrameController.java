@@ -20,6 +20,8 @@ public class MainFrameController implements Observer, ActionListener {
 	private Application model;
 	private MainFrame view;
 
+	//***************************** Constructor(s) *****************************
+
 	public MainFrameController(Application model, MainFrame view) {
 		this.model = model;
 		this.view = view;
@@ -39,6 +41,8 @@ public class MainFrameController implements Observer, ActionListener {
 		//setUpRulesTabController();
 	}
 
+	//************************** External Method(s) ****************************
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if (event.getActionCommand() == MainFrame.ACTION_COMMAND_EXIT){
@@ -48,9 +52,10 @@ public class MainFrameController implements Observer, ActionListener {
 
 	@Override
 	public void update(Observable observable, Object object) {
-		// TODO Auto-generated method stub
 
 	}
+
+	//*********************** Internal Helper Method(s) ************************
 
 	private void setUpIngredientsTabController() {
 		// initialize the table displayed in the tab
@@ -101,7 +106,7 @@ public class MainFrameController implements Observer, ActionListener {
 		view.addTab(notesTab, "Notes");
 	}
 
-	public JTable initializeIngredientsTabTable() {
+	private JTable initializeIngredientsTabTable() {
 		return new JTable(new TableGenerator().getTableModel());
 	}
 

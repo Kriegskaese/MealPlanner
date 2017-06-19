@@ -11,15 +11,16 @@ public class Ingredient extends Food {
 
 	private static int currentId;
 	private List<IngredientTag> tags;
+	ResultSet resultSet;
 
 	public Ingredient() {
-		properties.add(new FoodProperty("id", new Integer(currentId)));
+		properties.add(new FoodProperty("id", new Integer(currentId), this));
 		new AddQuery("ingredients", currentId);
 		currentId++;
 	}
 
 	public Ingredient(int id) {
-		properties.add(new FoodProperty("id", new Integer(id)));
+		properties.add(new FoodProperty("id", new Integer(id), this));
 	}
 
 	public List<IngredientTag> getTags() {
@@ -64,6 +65,18 @@ public class Ingredient extends Food {
 
 		// increment highest id by one
 		currentId = highestId + 1;
+	}
+
+	public void setPropertyValue(int propertyIndex, Object object) {
+		properties.get(propertyIndex).setValue(object);
+	}
+
+	public void setPropertyName(int propertyIndex, String name) {
+		properties.get(propertyIndex).setName(name);
+	}
+
+	public Object getPropertyValue(int propertyIndex) {
+		return properties.get(propertyIndex).getValue();
 	}
 
 }

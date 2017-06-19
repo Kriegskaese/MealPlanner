@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 import model.Ingredient;
 
-public class AddAndModifyIngredientFrame extends JFrame {
+public class AddIngredientFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +27,7 @@ public class AddAndModifyIngredientFrame extends JFrame {
 
 	//***************************** Constructor(s) *****************************
 
-	public AddAndModifyIngredientFrame(List<String> labelNames) {
+	public AddIngredientFrame(List<String> labelNames) {
 		this.labelNames = labelNames;
 
 		configureFrame();

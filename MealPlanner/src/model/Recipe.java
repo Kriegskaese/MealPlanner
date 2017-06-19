@@ -8,7 +8,7 @@ public class Recipe extends Food {
 	private List<RecipeEntry> entries;
 
 	public Recipe(int id) {
-		properties.add(new FoodProperty("id", new Integer(id)));
+		properties.add(new FoodProperty("id", new Integer(id), this));
 	}
 
 	public List<RecipeTag> getTags() {

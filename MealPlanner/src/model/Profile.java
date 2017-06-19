@@ -39,6 +39,7 @@ public class Profile extends Observable {
 
 	public void addIngredient(Ingredient ingredient) {
 		ingredients.add(ingredient);
+		setNextIngredientId();
 		setChanged();
 		notifyObservers();
 	}
@@ -47,6 +48,7 @@ public class Profile extends Observable {
 		int ingredientId = ingredient.getId();
 		ingredients.remove(ingredient);
 		new DeleteQuery("ingredients", ingredientId);
+		setNextIngredientId();
 		setChanged();
 		notifyObservers();
 	}
@@ -75,7 +77,7 @@ public class Profile extends Observable {
 					String propertyName = resultSet.getMetaData().getColumnName(i);
 					Object propertyValue = resultSet.getObject(i);
 
-					ingredient.addProperty(new FoodProperty(propertyName, propertyValue));
+					ingredient.addProperty(new FoodProperty(propertyName, propertyValue, ingredient));
 				}
 
 				// add ingredient to this profile
@@ -99,5 +101,17 @@ public class Profile extends Observable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void setNextIngredientId() {
+		int highestId = 0;
+
+		for (Ingredient ingredient : ingredients) {
+			if (highestId < ingredient.getId()) {
+				highestId = ingredient.getId();
+			}
+		}
+
+		Ingredient.setCurrentId(highestId + 1);
 	}
 }

@@ -10,6 +10,7 @@ public class TableGenerator {
 	private Vector<String> columnNames = new Vector<String>();
 	private Vector<Vector<Object>> rows = new Vector<Vector<Object>>();
 	private TableModel tableModel;
+	private Profile activeProfile = Application.getInstance().getActiveProfile();
 
 	public TableGenerator() {
 		columnNames = addColumnNames();
@@ -22,15 +23,17 @@ public class TableGenerator {
 	}
 
 	private Vector<String> addColumnNames() {
-		return Application.getInstance().getActiveProfile().getIngredientsColumnNames();
+		return activeProfile.getIngredientsColumnNames();
 	}
 
 	private Vector<Vector<Object>> addRows() {
-		for (Ingredient ingredient : Application.getInstance().getActiveProfile().getIngredients()) {
+		for (Ingredient ingredient : activeProfile.getIngredients()) {
 			Vector<Object> row = new Vector<Object>();
 
-			for (FoodProperty property : ingredient.getProperties()) {
-				row.add(property.getValue());
+			int nColumns = activeProfile.getIngredientsColumnNames().size();
+			
+			for (int i = 0; i < nColumns; i++) {
+				row.add(ingredient.getPropertyValue(i));
 			}
 
 			rows.add(row);
