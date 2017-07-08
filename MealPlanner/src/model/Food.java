@@ -72,4 +72,8 @@ public abstract class Food extends Observable {
 		notifyObservers();
 	}
 
+	public Set<String> getpropertyNames() {
+		return propertyNames;
+	}
+
 }
