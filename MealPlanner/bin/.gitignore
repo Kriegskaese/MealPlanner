@@ -1,10 +1,4 @@
+/model/
 /controller/
-<<<<<<< HEAD
-/main/
-/model/
 /view/
-/viewBuilder/
-=======
-/model/
->>>>>>> refs/heads/working
-/database/
+/unitTests/

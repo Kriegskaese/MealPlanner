@@ -1,39 +1,20 @@
 package model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-
-import database.AddQuery;
-import database.ReadQuery;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Ingredient extends Food {
 
-	private static int currentId;
-	private List<IngredientTag> tags;
-	ResultSet resultSet;
+	private Set<IngredientTag> tags = new TreeSet<>();
 
-	public Ingredient() {
-		properties.add(new FoodProperty("id", new Integer(currentId), this));
-		new AddQuery("ingredients", currentId);
-		currentId++;
-	}
+	//***************************** Constructor(s) *****************************
 
 	public Ingredient(int id) {
-		properties.add(new FoodProperty("id", new Integer(id), this));
+		this.id = id;
+		nextId++;
 	}
 
-	public List<IngredientTag> getTags() {
-		return tags;
-	}
-
-	public static int getCurrentId() {
-		return currentId;
-	}
-
-	public static void setCurrentId(int id) {
-		currentId = id;
-	}
+	//************************** External Method(s) ****************************
 
 	public void addTag(IngredientTag tag) {
 		tags.add(tag);
@@ -47,36 +28,14 @@ public class Ingredient extends Food {
 		notifyObservers();
 	}
 
-	public static void initializeId() {
-		// get all the ingredients from the database
-		ResultSet resultSet = new ReadQuery("ingredients").getResultSet();
-
-		// find the highest id
-		int highestId = 0;
-		try {
-			while (resultSet.next()) {
-				if (resultSet.getInt(1) > highestId) {
-					highestId = resultSet.getInt(1);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		// increment highest id by one
-		currentId = highestId + 1;
+	public boolean hasTag(IngredientTag tag) {
+		return tags.contains(tag);
 	}
 
-	public void setPropertyValue(int propertyIndex, Object object) {
-		properties.get(propertyIndex).setValue(object);
-	}
+	//************************ Getter(s) and Setter(s) *************************
 
-	public void setPropertyName(int propertyIndex, String name) {
-		properties.get(propertyIndex).setName(name);
-	}
-
-	public Object getPropertyValue(int propertyIndex) {
-		return properties.get(propertyIndex).getValue();
+	public Set<IngredientTag> getTags() {
+		return tags;
 	}
 
 }
