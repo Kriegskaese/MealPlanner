@@ -1,9 +1,7 @@
 package model;
 
-public class IngredientCategory extends Category {
-
-	public IngredientCategory(String name) {
-		super(name);
-	}
+public enum IngredientCategory {
+	
+	FRUITS, VEGETABLES, GRAINS, LEGUMES, NUTS, SEEDS, HERBS, SPICES;
 
 }

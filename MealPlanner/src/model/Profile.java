@@ -1,32 +1,65 @@
 package model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Observable;
-import java.util.Vector;
-
-import database.DeleteQuery;
-import database.ReadQuery;
+import java.util.Set;
 
 public class Profile extends Observable {
 
+	private int id;
+	protected static int nextId = 0;
 	private String name;
+	private Set<Ingredient> ingredients = new HashSet<>();
+	private Set<Recipe> recipies = new HashSet<>();
+	private Set<Meal> meals = new HashSet<>();
+	private Set<MealPlan> mealPlans = new HashSet<>();
+	protected static Set<Profile> instances = new LinkedHashSet<>();
 
-	private List<Ingredient> ingredients = new ArrayList<Ingredient>();
-	private Vector<String> ingredientsColumnNames = new Vector<String>();
-	private List<IngredientTag> ingredientTags = new ArrayList<IngredientTag>();
-	private List<IngredientCategory> ingredientCategories = new ArrayList<IngredientCategory>();
-	private List<Recipe> recipies = new ArrayList<Recipe>();
-	private List<RecipeTag> recipeTags = new ArrayList<RecipeTag>();
-	private List<RecipeCategory> recipeCategories = new ArrayList<RecipeCategory>();
-	private List<MealPlan> mealPlans = new ArrayList<MealPlan>();
+	//***************************** Constructor(s) *****************************
 
-	public Profile(String name) {
-		this.name = name;
-		initializeIngredients();
-		initializeIngredientsColumnNames();
+	public Profile(int id) {
+		this.id = id;
+		nextId = determineHighestAllocatedId() + 1;
+	}
+
+	public Profile() {
+		this.id = nextId;
+		nextId++;
+	}
+
+	//************************** External Method(s) ****************************
+
+	public void addIngredient(Ingredient ingredient) {
+		ingredients.add(ingredient);
+		setChanged();
+		notifyObservers();
+	}
+
+	public void removeIngredient(Ingredient ingredient) {
+		ingredients.remove(ingredient);
+		setChanged();
+		notifyObservers();
+	}
+
+	//*********************** Internal Helper Method(s) ************************
+
+	private int determineHighestAllocatedId() {
+		int highestId = 0;
+
+		for (Profile instance : instances) {
+			if (instance.getId() > highestId) {
+				highestId = instance.getId();
+			}
+		}
+
+		return highestId;
+	}
+
+	//************************ Getter(s) and Setter(s) *************************
+
+	public int getId() {
+		return id;
 	}
 
 	public String getName() {
@@ -37,81 +70,8 @@ public class Profile extends Observable {
 		this.name = name;
 	}
 
-	public void addIngredient(Ingredient ingredient) {
-		ingredients.add(ingredient);
-		setNextIngredientId();
-		setChanged();
-		notifyObservers();
-	}
-
-	public void removeIngredient(Ingredient ingredient) {
-		int ingredientId = ingredient.getId();
-		ingredients.remove(ingredient);
-		new DeleteQuery("ingredients", ingredientId);
-		setNextIngredientId();
-		setChanged();
-		notifyObservers();
-	}
-
-	public List<Ingredient> getIngredients() {
+	public Set<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public Vector<String> getIngredientsColumnNames() {
-		return ingredientsColumnNames;
-	}
-
-	private void initializeIngredients() {
-		ResultSet resultSet = new ReadQuery("ingredients").getResultSet();
-
-		try {
-			while (resultSet.next()) {
-				// create a new ingredient for each id
-				int id = resultSet.getInt(1);
-				Ingredient ingredient = new Ingredient(id);
-
-				// add properties to each ingredient
-				int nColumns = resultSet.getMetaData().getColumnCount();
-
-				for (int i = 2; i <= nColumns; i++) {
-					String propertyName = resultSet.getMetaData().getColumnName(i);
-					Object propertyValue = resultSet.getObject(i);
-
-					ingredient.addProperty(new FoodProperty(propertyName, propertyValue, ingredient));
-				}
-
-				// add ingredient to this profile
-				ingredients.add(ingredient);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void initializeIngredientsColumnNames() {
-		ResultSet resultSet = new ReadQuery("ingredients").getResultSet();
-
-		try {
-			int nColumns = resultSet.getMetaData().getColumnCount();
-
-			for (int i = 1; i <= nColumns; i++) {
-				String columnName = resultSet.getMetaData().getColumnName(i);
-				ingredientsColumnNames.add(columnName);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void setNextIngredientId() {
-		int highestId = 0;
-
-		for (Ingredient ingredient : ingredients) {
-			if (highestId < ingredient.getId()) {
-				highestId = ingredient.getId();
-			}
-		}
-
-		Ingredient.setCurrentId(highestId + 1);
-	}
 }

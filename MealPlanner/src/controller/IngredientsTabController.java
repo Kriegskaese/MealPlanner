@@ -68,7 +68,7 @@ public class IngredientsTabController implements Observer, ActionListener {
 	//*********************** Internal Helper Method(s) ************************
 
 	private void createFrame() {
-		List<String> columnNames = model.getActiveProfile().getIngredientsColumnNames();
+		List<String> columnNames = Ingredient.getNutrientNames();
 
 		addIngredientFrame = new AddIngredientFrame(columnNames);
 	}

@@ -2,19 +2,23 @@ package model;
 
 public class RecipeEntry {
 
-	private int amount;
+	private float amount;
 	private Ingredient ingredient;
 
-	public RecipeEntry(int amount, Ingredient ingredient) {
+	//***************************** Constructor(s) *****************************
+
+	public RecipeEntry(float amount, Ingredient ingredient) {
 		this.amount = amount;
 		this.ingredient = ingredient;
 	}
 
-	public int getAmount() {
+	//************************ Getter(s) and Setter(s) *************************
+
+	public float getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(float amount) {
 		this.amount = amount;
 	}
 

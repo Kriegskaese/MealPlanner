@@ -12,34 +12,36 @@ public class TableGenerator {
 	private TableModel tableModel;
 	private Profile activeProfile = Application.getInstance().getActiveProfile();
 
+	//***************************** Constructor(s) *****************************
+
 	public TableGenerator() {
-		columnNames = addColumnNames();
+		columnNames = new Vector<String>(Ingredient.getNutrientNames());
 		rows = addRows();
 		tableModel = new DefaultTableModel(rows, columnNames);
 	}
 
-	public TableModel getTableModel() {
-		return tableModel;
-	}
-
-	private Vector<String> addColumnNames() {
-		return activeProfile.getIngredientsColumnNames();
-	}
+	//*********************** Internal Helper Method(s) ************************
 
 	private Vector<Vector<Object>> addRows() {
+
 		for (Ingredient ingredient : activeProfile.getIngredients()) {
 			Vector<Object> row = new Vector<Object>();
 
-			int nColumns = activeProfile.getIngredientsColumnNames().size();
-			
-			for (int i = 0; i < nColumns; i++) {
-				row.add(ingredient.getPropertyValue(i));
+			for (String nutrientName : Ingredient.getNutrientNames()) {
+				float content = ingredient.getNutrientValue(nutrientName);
+				row.add(content);
 			}
 
 			rows.add(row);
 		}
 
 		return rows;
+	}
+
+	//************************ Getter(s) and Setter(s) *************************
+
+	public TableModel getTableModel() {
+		return tableModel;
 	}
 
 }

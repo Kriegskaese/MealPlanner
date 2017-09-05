@@ -13,36 +13,26 @@ public final class Application extends Observable {
 	//***************************** Constructor(s) *****************************
 
 	private Application() {
-		if (profiles.size() == 0) {
-			createProfile("default");
-			setActiveProfile(profiles.get(0));
-		}
-		Ingredient.initializeId();
+		initilizeProfile();
 	}
 
-	public static Application getInstance() {
-		if (instance == null) {
-			synchronized(Application.class) {
-				if (instance == null) {
-					instance = new Application();
-				}
-			}
-		}
-		return instance;
+	//*********************** Internal Helper Method(s) ************************
+
+	private void initilizeProfile() {
+		createProfile();
+		setActiveProfile(profiles.get(0));
 	}
 
 	//************************** External Method(s) ****************************
 
-	public void createProfile(String name) {
-		profiles.add(new Profile(name));
-
+	public void createProfile() {
+		profiles.add(new Profile());
 		setChanged();
 		notifyObservers();
 	}
 
-	public void deleteProfile(Profile profile) {
-		profiles.remove(profile);
-
+	public void deleteProfile(int id) {
+		profiles.remove(id);
 		setChanged();
 		notifyObservers();
 	}
@@ -55,6 +45,17 @@ public final class Application extends Observable {
 	}
 
 	//************************ Getter(s) and Setter(s) *************************
+
+	public static Application getInstance() {
+		if (instance == null) {
+			synchronized(Application.class) {
+				if (instance == null) {
+					instance = new Application();
+				}
+			}
+		}
+		return instance;
+	}
 
 	public Profile getActiveProfile() {
 		return activeProfile;

@@ -1,19 +1,27 @@
 package model;
 
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Recipe extends Food {
 
-	private List<RecipeTag> tags;
+	private Set <RecipeTag> tags = new TreeSet<>();;
 	private List<RecipeEntry> entries;
 
+	//***************************** Constructor(s) *****************************
+
 	public Recipe(int id) {
-		properties.add(new FoodProperty("id", new Integer(id), this));
+		this.id = id;
+		nextId = determineHighestAllocatedId() + 1;
 	}
 
-	public List<RecipeTag> getTags() {
-		return tags;
+	public Recipe() {
+		this.id = nextId;
+		nextId++;
 	}
+
+	//************************** External Method(s) ****************************
 
 	public void addTag(RecipeTag tag) {
 		tags.add(tag);
@@ -27,6 +35,10 @@ public class Recipe extends Food {
 		notifyObservers();
 	}
 
+	public boolean hasTag(RecipeTag tag) {
+		return tags.contains(tag);
+	}
+
 	public void addEntry(RecipeEntry entry) {
 		entries.add(entry);
 		setChanged();
@@ -37,6 +49,12 @@ public class Recipe extends Food {
 		entries.remove(entry);
 		setChanged();
 		notifyObservers();
+	}
+
+	//************************ Getter(s) and Setter(s) *************************
+
+	public Set<RecipeTag> getTags() {
+		return tags;
 	}
 
 }

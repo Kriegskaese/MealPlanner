@@ -23,6 +23,8 @@ public class MainFrame extends JFrame {
 
 	public static final String ACTION_COMMAND_EXIT = "closeApplication";
 
+	//***************************** Constructor(s) *****************************
+
 	public MainFrame() {
 		configureFrame();
 
@@ -30,13 +32,20 @@ public class MainFrame extends JFrame {
 		configureMenuBar();
 
 		add(tabbedPane);
-		// configureTabbedPane();
 
 		pack();
 
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
+
+	//************************** External Method(s) ****************************
+
+	public void addTab(JPanel tab, String tabName) {
+		tabbedPane.addTab(tabName, tab);
+	}
+
+	//*********************** Internal Helper Method(s) ************************
 
 	private void configureFrame() {
 		setTitle("Meal Planner");
@@ -101,31 +110,14 @@ public class MainFrame extends JFrame {
 		helpMenu.add(aboutMenuItem);
 	}
 
-	/* This part is now done in the MainFrameController in order to have access to the tabs.
-	private void configureTabbedPane() {
-		tabbedPane.addTab("Meal plans", new MealPlansTab_());
-		tabbedPane.addTab("Shopping lists", new ShoppingListsTab_());
-		tabbedPane.addTab("Statistics", new StatisticsTab());
-		tabbedPane.addTab("Notes", new NotesTab());
-		tabbedPane.addTab("Categories & Tags", new TagsAndCategoriesTab());
-		tabbedPane.addTab("Ingredients", new IngredientsTab());
-		tabbedPane.addTab("Recipes", new RecipesTab());
-		tabbedPane.addTab("Events", new EventsTab());
-		tabbedPane.addTab("Rules", new RulesTab());
+	private void configureProfileSelectionPanel() {
 
-		Color configurationTabsColor = Color.LIGHT_GRAY;
-		for (int i = 4; i <= 8; i++) {
-			tabbedPane.setBackgroundAt(i, configurationTabsColor);
-		}
 	}
-	 */
+
+	//************************ Getter(s) and Setter(s) *************************
 
 	public JMenuItem getExitMenuItem() {
 		return exitMenuItem;
-	}
-
-	public void addTab(JPanel tab, String tabName) {
-		tabbedPane.addTab(tabName, tab);
 	}
 
 }

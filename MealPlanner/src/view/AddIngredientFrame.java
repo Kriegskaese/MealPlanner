@@ -60,7 +60,7 @@ public class AddIngredientFrame extends JFrame {
 			contentPanel.add(panel);
 			textFields.add(panel.getTextField());
 			if(labelName.equals("id")) {
-				int currentId = Ingredient.getCurrentId();
+				int currentId = Ingredient.getNextId();
 				panel.getTextField().setText(Integer.toString(currentId));
 				panel.getTextField().setEnabled(false);
 			}
